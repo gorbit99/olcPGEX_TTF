@@ -136,7 +136,7 @@ void olc::Font::Font::DrawString(std::u32string string, int x, int y,
 
     Font *prevToUse = nullptr;
 
-    for (int i = 0; i < string.size(); i++) {
+    for (size_t i = 0; i < string.size(); i++) {
         char32_t chr = string[i];
         Font *toUse = this;
         FT_UInt chrIndex = GetCharIndex(chr);
@@ -192,8 +192,8 @@ void olc::Font::Font::DrawString(std::u32string string, int x, int y,
 void olc::Font::DrawBitmap(int x, int y, FT_Bitmap bmp, olc::Pixel color) {
     switch (bmp.pixel_mode) {
     case FT_PIXEL_MODE_MONO:
-        for (int bx = 0; bx < bmp.width; bx++) {
-            for (int by = 0; by < bmp.rows; by++) {
+        for (size_t bx = 0; bx < bmp.width; bx++) {
+            for (size_t by = 0; by < bmp.rows; by++) {
                 int byteOffset = bx / 8;
                 char byte = bmp.buffer[by * bmp.pitch + byteOffset];
                 bool val = (byte >> (7 - bx % 8)) & 1;
@@ -204,8 +204,8 @@ void olc::Font::DrawBitmap(int x, int y, FT_Bitmap bmp, olc::Pixel color) {
         }
         break;
     case FT_PIXEL_MODE_GRAY:
-        for (int bx = 0; bx < bmp.width; bx++) {
-            for (int by = 0; by < bmp.rows; by++) {
+        for (size_t bx = 0; bx < bmp.width; bx++) {
+            for (size_t by = 0; by < bmp.rows; by++) {
                 uint8_t byte = bmp.buffer[by * bmp.pitch + bx];
                 if (byte == 0) {
                     continue;
@@ -220,8 +220,8 @@ void olc::Font::DrawBitmap(int x, int y, FT_Bitmap bmp, olc::Pixel color) {
     case FT_PIXEL_MODE_LCD: break;
     case FT_PIXEL_MODE_LCD_V: break;
     case FT_PIXEL_MODE_BGRA:
-        for (int bx = 0; bx < bmp.width; bx++) {
-            for (int by = 0; by < bmp.rows; by++) {
+        for (size_t bx = 0; bx < bmp.width; bx++) {
+            for (size_t by = 0; by < bmp.rows; by++) {
                 olc::Pixel pixel{
                         bmp.buffer[by * bmp.pitch + bx * 4 + 2],
                         bmp.buffer[by * bmp.pitch + bx * 4 + 1],
@@ -237,7 +237,7 @@ void olc::Font::DrawBitmap(int x, int y, FT_Bitmap bmp, olc::Pixel color) {
 
 void olc::Font::Font::DrawString(std::u32string string, olc::vi2d pos,
                                  olc::Pixel color, float angle) {
-    DrawString(string, pos.x, pos.y, angle);
+    DrawString(string, pos.x, pos.y, color, angle);
 }
 
 olc::FontRect olc::Font::GetStringBounds(std::u32string string, float angle) {
@@ -262,7 +262,7 @@ olc::FontRect olc::Font::GetStringBounds(std::u32string string, float angle) {
 
     Font *prevToUse = nullptr;
 
-    for (int i = 0; i < string.size(); i++) {
+    for (size_t i = 0; i < string.size(); i++) {
         char32_t chr = string[i];
 
         Font *toUse = this;
@@ -342,7 +342,8 @@ bool olc::Font::init() {
         const char *errorString = FT_Error_String(error);
         if (errorString == nullptr) {
             std::cerr
-                    << "An unknown error occured while loading the font library! Error code: "
+                    << "An unknown error occured while loading the font library! "
+                       "Error code: "
                     << error << "\n";
         } else {
             std::cerr << errorString << "\n";
@@ -373,7 +374,7 @@ olc::Sprite *olc::Font::RenderStringToSprite(std::u32string string,
 
     olc::Font *prevToUse = nullptr;
 
-    for (int i = 0; i < string.size(); i++) {
+    for (size_t i = 0; i < string.size(); i++) {
         char32_t chr = string[i];
 
         Font *toUse = this;
@@ -431,8 +432,8 @@ void olc::Font::DrawBitmapTo(int x, int y, FT_Bitmap bmp, olc::Pixel color,
                              olc::Sprite *sprite) {
     switch (bmp.pixel_mode) {
     case FT_PIXEL_MODE_MONO:
-        for (int bx = 0; bx < bmp.width; bx++) {
-            for (int by = 0; by < bmp.rows; by++) {
+        for (size_t bx = 0; bx < bmp.width; bx++) {
+            for (size_t by = 0; by < bmp.rows; by++) {
                 int byteOffset = bx / 8;
                 char byte = bmp.buffer[by * bmp.pitch + byteOffset];
                 bool val = (byte >> (7 - bx % 8)) & 1;
@@ -443,8 +444,8 @@ void olc::Font::DrawBitmapTo(int x, int y, FT_Bitmap bmp, olc::Pixel color,
         }
         break;
     case FT_PIXEL_MODE_GRAY:
-        for (int bx = 0; bx < bmp.width; bx++) {
-            for (int by = 0; by < bmp.rows; by++) {
+        for (size_t bx = 0; bx < bmp.width; bx++) {
+            for (size_t by = 0; by < bmp.rows; by++) {
                 uint8_t byte = bmp.buffer[by * bmp.pitch + bx];
                 if (byte == 0) {
                     continue;
@@ -459,8 +460,8 @@ void olc::Font::DrawBitmapTo(int x, int y, FT_Bitmap bmp, olc::Pixel color,
     case FT_PIXEL_MODE_LCD: break;
     case FT_PIXEL_MODE_LCD_V: break;
     case FT_PIXEL_MODE_BGRA:
-        for (int bx = 0; bx < bmp.width; bx++) {
-            for (int by = 0; by < bmp.rows; by++) {
+        for (size_t bx = 0; bx < bmp.width; bx++) {
+            for (size_t by = 0; by < bmp.rows; by++) {
                 olc::Pixel pixel{
                         bmp.buffer[by * bmp.pitch + bx * 4 + 2],
                         bmp.buffer[by * bmp.pitch + bx * 4 + 1],
