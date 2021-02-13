@@ -66,7 +66,7 @@ namespace olc {
     };
 } // namespace olc
 
-/* #ifdef OLC_PGEX_TTF */
+#ifdef OLC_PGEX_TTF
 
 FT_Library olc::Font::library;
 
@@ -508,6 +508,6 @@ void olc::Font::AddFallbackFont(std::string path) {
     fallbacks.emplace_back(path, fontSize);
 }
 
-/* #endif */
+#endif
 
 #endif
