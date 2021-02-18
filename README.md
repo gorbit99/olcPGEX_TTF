@@ -11,12 +11,12 @@ The extension uses Freetype2. This is usually present on most systems as it's wi
 To compile a program using this extension, you'll need the freetype2 development binaries. You can download them off of
 https://github.com/ubawurinna/freetype-windows-binaries/releases or compile them yourself. For the include libraries download
 https://gitlab.freedesktop.org/freetype/freetype. You'll need at least the .lib file from the former link and the include directory from
-the latter.
+the latter. You'll also need to place the dll files present in the former next to your resulting executable after building.
 
 ### Visual Studio
 For VS2019, right click on your project, select properties, there C/C++, and add the previous include folder to your "Additional Include Directories"
 setting. Afterwards, go to Linker > General, and add the folder containing your .lib file to the "Additional Library Directories" 
-setting. Finally go to Linker > Input, and add "freetype.lib" to your "Additional Dependencies" field.
+setting.
 
 ### MinGW
 If you're using MinGW, add `-I/path/to/include -L/path/to/.lib/folder -lfreetype` to your build command.
