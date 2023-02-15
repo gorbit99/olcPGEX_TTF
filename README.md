@@ -1,6 +1,6 @@
 # olcPGEX_TTF
 
-olcPGEX_TTF is an extension for the (PixelGameEngine)[https://github.com/OneLoneCoder/olcPixelGameEngine/] that allows you to 
+olcPGEX_TTF is an extension for the [PixelGameEngine](https://github.com/OneLoneCoder/olcPixelGameEngine) that allows you to 
 open fonts and render text with them. It also includes built in functionality to rotate text, render to sprites, decals
 or renderables and define fallback fonts in case a character is not included. It should handle unicode, and even some colored emoji fonts.
 
