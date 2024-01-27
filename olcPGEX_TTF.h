@@ -78,6 +78,21 @@ namespace olc {
             return *this;
         }
 
+        void SetFontSize(int fSize) {
+            fontSize = fSize;
+            FT_Error error = FT_Set_Pixel_Sizes(fontFace, 0, fontSize);
+            if (error) {
+                const char *errorString = FT_Error_String(error);
+                if (errorString == nullptr) {
+                    std::cerr
+                            << "An unknown error occured while loading the font!Error Code: "
+                            << error << "\n";
+                } else {
+                    std::cerr << errorString << "\n";
+                }
+            }
+        }
+
         void DrawString(std::u32string string, int x, int y,
                         olc::Pixel color = olc::BLACK, float angle = 0.0f) {
             FT_Matrix rotMat;
